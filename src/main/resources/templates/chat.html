@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Chat</title></head>
+<body>
+<h1>Chat with
+    <span th:text="${users.get(0).username == #authentication.name ? users.get(1).username : users.get(0).username}"></span>
+</h1>
+<div th:each="msg,iterStat : ${msgsRaw}">
+    <p>
+        <b th:text="${msg.sender.username}">Sender</b>:
+        <span th:text="${msgsDec[iterStat.index]}">Decrypted</span>
+    </p>
+</div>
+<form th:action="@{|/chats/${chat.id}/message|}" method="post">
+    <input name="text" placeholder="Your message"/>
+    <button type="submit">Send</button>
+</form>
+<form th:action="@{|/chats/${chat.id}/regenerateKey|}" method="post">
+    <button>Regenerate Keys</button>
+</form>
+<a th:href="@{/chats}">Back to list</a>
+</body>
+</html>

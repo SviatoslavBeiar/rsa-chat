@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Chats</title></head>
+<body>
+<h1>Your Chats</h1>
+<ul>
+    <li th:each="c : ${chats}">
+        <a th:href="@{|/chats/${c.id}|}"
+           th:text="${c.userA.username == #authentication.name ? c.userB.username : c.userA.username}">Chat</a>
+    </li>
+</ul>
+<h2>New Chat</h2>
+<form th:action="@{/chats}" method="post">
+    <input name="otherUsername" placeholder="Username to chat with"/>
+    <button type="submit">Create</button>
+</form>
+<form th:action="@{/deleteAccount}" method="post">
+    <button type="submit">Delete Account</button>
+</form>
+<form th:action="@{/logout}" method="post"><button>Logout</button></form>
+</body>
+</html>
